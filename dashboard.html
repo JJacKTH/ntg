@@ -1,15 +1,47 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <title>Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
 <body class="bg-gray-900 text-white">
-  <div id="navbar"></div>
 
+  <!-- Navbar -->
+  <div class="bg-gray-800 px-6 py-4 flex justify-between">
+    <span class="font-bold">NTG Dashboard</span>
+    <button onclick="logout()" class="text-red-400">Logout</button>
+  </div>
+
+  <!-- Content -->
   <div class="p-6">
-    <h1 id="welcome" class="text-2xl"></h1>
+    <h1 id="welcome" class="text-2xl mb-4"></h1>
 
-    <!-- admin only -->
-    <div id="adminPanel" class="hidden mt-6">
-      <h2 class="text-xl mb-2">จัดการสมาชิก</h2>
-      <div id="memberList"></div>
+    <!-- MEMBER -->
+    <div class="bg-gray-800 p-4 rounded-xl">
+      <p><b>Discord:</b> <span id="username"></span></p>
+      <p><b>Game Name:</b> <span id="game"></span></p>
+      <p><b>Role:</b> <span id="role"></span></p>
+    </div>
+
+    <!-- ADMIN -->
+    <div id="adminPanel" class="hidden mt-8 bg-gray-800 p-4 rounded-xl">
+      <h2 class="text-xl mb-4">จัดการสมาชิก</h2>
+      <table class="w-full text-sm">
+        <thead>
+          <tr class="text-left border-b border-gray-700">
+            <th>Discord</th>
+            <th>Game</th>
+            <th>Role</th>
+          </tr>
+        </thead>
+        <tbody id="memberList"></tbody>
+      </table>
     </div>
   </div>
 
+  <script src="js/config.js"></script>
+  <script src="js/api.js"></script>
   <script src="js/dashboard.js"></script>
 </body>
+</html>
