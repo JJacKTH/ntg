@@ -2,163 +2,128 @@
 <html lang="th">
 <head>
   <meta charset="utf-8">
-  <title>Cosmic Dashboard</title>
+  <title>Dashboard Mockup</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <!-- Cosmic UI -->
-  <link rel="stylesheet" href="https://unpkg.com/cosmic-ui-lite@latest/dist/cosmic-ui.css">
-  <script src="https://unpkg.com/cosmic-ui-lite@latest/dist/index.umd.js"></script>
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+  <!-- SweetAlert2 -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
   <!-- Chart.js -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-  <style>
-    body {
-      background:#05070d;
-      color:#c9d1ff;
-      margin:0;
-      font-family: system-ui;
-    }
-    .layout {
-      display:grid;
-      grid-template-columns:240px 1fr;
-      min-height:100vh;
-    }
-    aside {
-      background:#0b0f1a;
-      padding:20px;
-      border-right:1px solid #1f2a44;
-    }
-    main {
-      padding:24px;
-    }
-    .card-grid {
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-      gap:16px;
-    }
-    .section {
-      margin-top:24px;
-    }
-    table {
-      width:100%;
-      border-collapse:collapse;
-      font-size:14px;
-    }
-    th,td {
-      padding:10px;
-      border-bottom:1px solid #1f2a44;
-    }
-    th {
-      text-align:left;
-      color:#7aa2ff;
-    }
-  </style>
 </head>
-<body>
 
-<div class="layout">
+<body class="bg-slate-900 text-slate-200">
+
+<div class="min-h-screen grid grid-cols-[240px_1fr]">
 
   <!-- Sidebar -->
-  <aside>
-    <h2 class="cosmic-text">COSMIC</h2>
-    <p class="text-sm opacity-70">Admin Dashboard</p>
+  <aside class="bg-slate-950 border-r border-slate-800 p-5">
+    <h1 class="text-xl font-bold text-indigo-400">DASHBOARD</h1>
+    <p class="text-sm text-slate-500 mb-6">Mockup UI</p>
 
-    <div style="margin-top:20px" class="space-y-2">
-      <button class="cosmic-btn cosmic-btn--primary w-full">Dashboard</button>
-      <button class="cosmic-btn cosmic-btn--secondary w-full">Users</button>
-      <button class="cosmic-btn cosmic-btn--secondary w-full">Settings</button>
-    </div>
+    <nav class="space-y-2">
+      <button class="w-full text-left px-3 py-2 rounded bg-indigo-600 hover:bg-indigo-500">
+        Overview
+      </button>
+      <button class="w-full text-left px-3 py-2 rounded hover:bg-slate-800">
+        Users
+      </button>
+      <button class="w-full text-left px-3 py-2 rounded hover:bg-slate-800">
+        Settings
+      </button>
+    </nav>
   </aside>
 
   <!-- Main -->
-  <main>
+  <main class="p-6 space-y-6">
 
     <!-- Header -->
     <div class="flex justify-between items-center">
-      <h1 class="cosmic-text">Overview</h1>
-      <button class="cosmic-btn cosmic-btn--primary"
-        onclick="CosmicUI.showNotification('Success','System is running')">
+      <h2 class="text-2xl font-semibold">Overview</h2>
+      <button id="btnStatus"
+        class="px-4 py-2 rounded bg-indigo-600 hover:bg-indigo-500">
         Check Status
       </button>
     </div>
 
-    <!-- Stats Cards -->
-    <div class="card-grid section">
-      <div class="cosmic-card">
-        <h4>Total Users</h4>
-        <p class="text-2xl">1,248</p>
+    <!-- Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+      <div class="bg-slate-800 rounded-xl p-4">
+        <p class="text-slate-400 text-sm">Users</p>
+        <p class="text-2xl font-bold">1,248</p>
       </div>
-      <div class="cosmic-card">
-        <h4>Active Today</h4>
-        <p class="text-2xl">312</p>
+      <div class="bg-slate-800 rounded-xl p-4">
+        <p class="text-slate-400 text-sm">Active</p>
+        <p class="text-2xl font-bold">312</p>
       </div>
-      <div class="cosmic-card">
-        <h4>Server Load</h4>
-        <p class="text-2xl">23%</p>
+      <div class="bg-slate-800 rounded-xl p-4">
+        <p class="text-slate-400 text-sm">Server Load</p>
+        <p class="text-2xl font-bold">23%</p>
       </div>
-      <div class="cosmic-card">
-        <h4>Errors</h4>
-        <p class="text-2xl">0</p>
+      <div class="bg-slate-800 rounded-xl p-4">
+        <p class="text-slate-400 text-sm">Errors</p>
+        <p class="text-2xl font-bold">0</p>
       </div>
     </div>
 
     <!-- Chart -->
-    <div class="cosmic-card section">
-      <h3>User Activity</h3>
+    <div class="bg-slate-800 rounded-xl p-5">
+      <h3 class="mb-3 font-semibold">User Activity</h3>
       <canvas id="chart" height="100"></canvas>
     </div>
 
     <!-- Tabs -->
-    <div class="cosmic-card section">
-      <div class="flex gap-2">
-        <button class="cosmic-btn cosmic-btn--secondary" onclick="showTab('table')">Table</button>
-        <button class="cosmic-btn cosmic-btn--secondary" onclick="showTab('form')">Form</button>
+    <div class="bg-slate-800 rounded-xl p-5">
+      <div class="flex gap-2 mb-4">
+        <button class="tab-btn px-3 py-1 rounded bg-indigo-600" data-tab="table">
+          Table
+        </button>
+        <button class="tab-btn px-3 py-1 rounded bg-slate-700" data-tab="form">
+          Form
+        </button>
       </div>
 
       <!-- Table -->
-      <div id="tab-table" class="section">
-        <table>
-          <thead>
+      <div id="tab-table">
+        <table class="w-full text-sm">
+          <thead class="text-slate-400">
             <tr>
-              <th>User</th>
+              <th class="text-left py-2">User</th>
               <th>Status</th>
               <th>Last Active</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>Alpha</td>
-              <td>Online</td>
-              <td>2 min ago</td>
+            <tr class="border-t border-slate-700">
+              <td class="py-2">Alpha</td>
+              <td class="text-center text-green-400">Online</td>
+              <td class="text-center">2 min</td>
             </tr>
-            <tr>
-              <td>Beta</td>
-              <td>Offline</td>
-              <td>1 day ago</td>
-            </tr>
-            <tr>
-              <td>Gamma</td>
-              <td>Online</td>
-              <td>5 min ago</td>
+            <tr class="border-t border-slate-700">
+              <td class="py-2">Beta</td>
+              <td class="text-center text-red-400">Offline</td>
+              <td class="text-center">1 day</td>
             </tr>
           </tbody>
         </table>
       </div>
 
       <!-- Form -->
-      <div id="tab-form" class="section" style="display:none">
-        <div class="space-y-3">
-          <input class="cosmic-input w-full" placeholder="Username">
-          <input class="cosmic-input w-full" placeholder="Email">
-          <button class="cosmic-btn cosmic-btn--primary"
-            onclick="CosmicUI.showModal({
-              title:'Saved',
-              content:'User data saved successfully'
-            })">
-            Save
-          </button>
-        </div>
+      <div id="tab-form" class="hidden space-y-3">
+        <input class="w-full px-3 py-2 rounded bg-slate-900 border border-slate-700"
+               placeholder="Username">
+        <input class="w-full px-3 py-2 rounded bg-slate-900 border border-slate-700"
+               placeholder="Email">
+        <button id="btnSave"
+          class="px-4 py-2 rounded bg-indigo-600 hover:bg-indigo-500">
+          Save
+        </button>
       </div>
     </div>
 
@@ -167,23 +132,44 @@
 
 <script>
   // Chart
-  new Chart(document.getElementById('chart'), {
-    type:'line',
-    data:{
-      labels:['Mon','Tue','Wed','Thu','Fri','Sat','Sun'],
-      datasets:[{
-        label:'Users',
-        data:[120,190,300,260,220,280,350],
-        tension:0.4
+  new Chart($('#chart'), {
+    type: 'line',
+    data: {
+      labels: ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'],
+      datasets: [{
+        label: 'Users',
+        data: [120,190,300,260,220,280,350],
+        borderWidth: 2,
+        tension: 0.4
       }]
     }
   });
 
   // Tabs
-  function showTab(tab) {
-    document.getElementById('tab-table').style.display = tab==='table'?'block':'none';
-    document.getElementById('tab-form').style.display  = tab==='form'?'block':'none';
-  }
+  $('.tab-btn').on('click', function () {
+    $('.tab-btn').removeClass('bg-indigo-600').addClass('bg-slate-700');
+    $(this).addClass('bg-indigo-600');
+
+    $('#tab-table, #tab-form').addClass('hidden');
+    $('#tab-' + $(this).data('tab')).removeClass('hidden');
+  });
+
+  // SweetAlert2
+  $('#btnStatus').on('click', () => {
+    Swal.fire({
+      icon: 'success',
+      title: 'System OK',
+      text: 'All services are running'
+    });
+  });
+
+  $('#btnSave').on('click', () => {
+    Swal.fire({
+      icon: 'success',
+      title: 'Saved',
+      text: 'User data saved successfully'
+    });
+  });
 </script>
 
 </body>
