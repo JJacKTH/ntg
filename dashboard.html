@@ -1,139 +1,15 @@
-<!doctype html>
-<html lang="th">
-<head>
-  <meta charset="UTF-8" />
-  <title>Family Dashboard</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<body class="bg-gray-900 text-white">
+  <div id="navbar"></div>
 
-  <!-- Tailwind -->
-  <script src="https://cdn.tailwindcss.com"></script>
+  <div class="p-6">
+    <h1 id="welcome" class="text-2xl"></h1>
 
-  <!-- jQuery -->
-  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-
-  <!-- SweetAlert2 -->
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-  <!-- Theme -->
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            primary: '#6366f1'
-          }
-        }
-      }
-    }
-  </script>
-</head>
-
-<body class="bg-gradient-to-br from-gray-900 via-gray-800 to-black min-h-screen text-gray-200">
-
-<!-- ===== NAVBAR ===== -->
-<nav class="flex items-center justify-between px-8 py-5 border-b border-gray-700">
-  <h1 class="text-xl font-bold tracking-wide">FiveM Family</h1>
-
-  <div class="flex items-center gap-4">
-    <img id="avatar" class="w-10 h-10 rounded-full border border-gray-600">
-    <div>
-      <p id="username" class="font-semibold"></p>
-      <p id="role" class="text-xs text-gray-400"></p>
+    <!-- admin only -->
+    <div id="adminPanel" class="hidden mt-6">
+      <h2 class="text-xl mb-2">จัดการสมาชิก</h2>
+      <div id="memberList"></div>
     </div>
   </div>
-</nav>
 
-<!-- ===== CONTENT ===== -->
-<main class="p-8 max-w-7xl mx-auto">
-
-  <!-- STATS -->
-  <section class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
-    <div class="bg-gray-900/70 rounded-2xl p-6 shadow-xl">
-      <p class="text-sm text-gray-400">สถานะ</p>
-      <h2 class="text-2xl font-bold text-primary mt-2">Online</h2>
-    </div>
-
-    <div class="bg-gray-900/70 rounded-2xl p-6 shadow-xl">
-      <p class="text-sm text-gray-400">Rank</p>
-      <h2 id="rankBox" class="text-2xl font-bold mt-2"></h2>
-    </div>
-
-    <div class="bg-gray-900/70 rounded-2xl p-6 shadow-xl">
-      <p class="text-sm text-gray-400">Last Login</p>
-      <h2 class="text-2xl font-bold mt-2">Today</h2>
-    </div>
-  </section>
-
-  <!-- MAIN PANEL -->
-  <section class="bg-gray-900/70 rounded-2xl p-8 shadow-xl mb-10">
-    <h2 class="text-xl font-bold mb-4">ข้อมูลสมาชิก</h2>
-
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-      <div>
-        <label class="text-sm text-gray-400">Discord ID</label>
-        <p id="uid" class="font-mono"></p>
-      </div>
-
-      <div>
-        <label class="text-sm text-gray-400">ชื่อในเกม</label>
-        <p id="game">-</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ADMIN PANEL -->
-  <section id="adminPanel" class="hidden bg-gradient-to-br from-indigo-900/40 to-purple-900/40 rounded-2xl p-8 shadow-xl">
-    <h2 class="text-xl font-bold mb-6 text-indigo-300">Admin Panel</h2>
-
-    <button
-      onclick="manageUsers()"
-      class="px-6 py-3 rounded-xl bg-primary hover:bg-indigo-500 transition font-semibold shadow-lg">
-      จัดการสมาชิก
-    </button>
-  </section>
-
-</main>
-
-<!-- ===== SCRIPT ===== -->
-<script>
-  const params = new URLSearchParams(location.search);
-
-  const user = {
-    id: params.get('id'),
-    name: params.get('name'),
-    role: params.get('role'),
-    avatar: params.get('avatar')
-  };
-
-  if (!user.id) {
-    location.href = 'login.html';
-  }
-
-  $('#username').text(user.name);
-  $('#role').text(user.role.toUpperCase());
-  $('#rankBox').text(user.role.toUpperCase());
-  $('#uid').text(user.id);
-
-  $('#avatar').attr(
-    'src',
-    user.avatar
-      ? `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png`
-      : 'https://cdn.discordapp.com/embed/avatars/0.png'
-  );
-
-  if (user.role === 'admin') {
-    $('#adminPanel').removeClass('hidden');
-  }
-
-  function manageUsers() {
-    Swal.fire({
-      icon: 'info',
-      title: 'Admin Panel',
-      text: 'ระบบจัดการสมาชิก (ต่อยอดได้)',
-      confirmButtonColor: '#6366f1'
-    });
-  }
-</script>
-
+  <script src="js/dashboard.js"></script>
 </body>
-</html>
