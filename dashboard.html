@@ -1,0 +1,26 @@
+<input id="gameName" placeholder="ชื่อในเกม"
+ class="border px-3 py-2 rounded w-full">
+
+<input id="rank" placeholder="Rank"
+ class="border px-3 py-2 rounded w-full">
+
+<button id="save" class="bg-green-600 px-4 py-2 rounded text-white">
+  Save
+</button>
+
+<script>
+const user = JSON.parse(localStorage.getItem('discord'));
+
+$('#save').on('click', () => {
+  fetch('SCRIPT_API_URL', {
+    method:'POST',
+    body: JSON.stringify({
+      id: user.id,
+      game: $('#gameName').val(),
+      rank: $('#rank').val()
+    })
+  }).then(() => {
+    Swal.fire('Saved','Data updated','success');
+  });
+});
+</script>
