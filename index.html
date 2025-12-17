@@ -1,77 +1,77 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="th">
 <head>
-  <meta charset="utf-8">
-  <title>Simple GitHub Pages Site</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cosmic UI Dashboard</title>
 
-  <!-- Tailwind CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Cosmic UI Lite CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/cosmic-ui-lite@latest/dist/cosmic-ui.css">
+
+  <style>
+    body {
+      background: #000;
+      color: #0ff;
+      font-family: Arial, sans-serif;
+    }
+    .sidebar {
+      width: 220px;
+      background: #111;
+      height: 100vh;
+      padding: 20px;
+      box-sizing: border-box;
+      float: left;
+    }
+    .main {
+      margin-left: 240px;
+      padding: 20px;
+    }
+    .dashboard-card {
+      margin-bottom: 20px;
+    }
+  </style>
 </head>
-<body class="bg-gray-100 text-gray-800">
+<body>
 
-  <!-- Header -->
-  <header class="bg-white shadow">
-    <div class="max-w-5xl mx-auto px-4 py-4 flex justify-between items-center">
-      <h1 class="text-xl font-bold">My Simple Web</h1>
-      <span class="text-sm text-gray-500">GitHub Pages</span>
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <h2 class="cosmic-text">Dashboard</h2>
+    <button class="cosmic-btn cosmic-btn--primary" onclick="CosmicUI.showNotification('Info', 'Clicked Dashboard menu!')">Home</button>
+    <button class="cosmic-btn cosmic-btn--secondary" onclick="CosmicUI.showNotification('Info', 'Clicked Stats!')">Stats</button>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main">
+    <h1 class="cosmic-text">Control Center</h1>
+
+    <!-- Card 1 -->
+    <div class="cosmic-card dashboard-card">
+      <h3>Status Summary</h3>
+      <p>System Health: OK</p>
+      <p>Server Load: Low</p>
     </div>
-  </header>
 
-  <!-- Content -->
-  <main class="max-w-5xl mx-auto px-4 py-10">
-    <div class="bg-white rounded-xl shadow p-6 space-y-4">
-      <h2 class="text-lg font-semibold">ตัวอย่างเว็บใช้งานง่าย</h2>
-
-      <p class="text-gray-600">
-        เว็บนี้เป็น Static HTML ใช้งานบน GitHub Pages ได้ทันที
-      </p>
-
-      <div class="flex gap-2">
-        <input
-          id="inputText"
-          type="text"
-          placeholder="พิมพ์ข้อความ..."
-          class="flex-1 border rounded-lg px-3 py-2 focus:outline-none focus:ring"
-        />
-        <button
-          onclick="saveData()"
-          class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
-        >
-          บันทึก
-        </button>
-      </div>
-
-      <div class="mt-4">
-        <p class="text-sm text-gray-500 mb-1">ข้อมูลที่บันทึกไว้:</p>
-        <div id="output" class="bg-gray-50 border rounded-lg p-3 text-sm"></div>
-      </div>
+    <!-- Card 2 -->
+    <div class="cosmic-card dashboard-card">
+      <h3>User Activity</h3>
+      <p>Online Users: 42</p>
+      <p>New Signups: 5</p>
     </div>
-  </main>
 
-  <!-- Footer -->
-  <footer class="text-center text-sm text-gray-500 py-6">
-    © 2025 Simple GitHub Pages
-  </footer>
+    <!-- Action Button -->
+    <button class="cosmic-btn cosmic-btn--primary" onclick="CosmicUI.showModal({
+      title: 'Confirm Action',
+      content: 'Are you sure you want to proceed?',
+      buttons: [
+        { text: 'Cancel', variant: 'secondary' },
+        { text: 'Confirm', variant: 'primary', onClick: () => CosmicUI.showNotification('Confirmed', 'Action executed!') }
+      ]
+    })">
+      Perform Action
+    </button>
+  </div>
 
-  <!-- Script -->
-  <script>
-    const output = document.getElementById('output');
-
-    function saveData() {
-      const value = document.getElementById('inputText').value.trim();
-      if (!value) return;
-
-      localStorage.setItem('myData', value);
-      showData();
-    }
-
-    function showData() {
-      output.textContent = localStorage.getItem('myData') || '- ไม่มีข้อมูล -';
-    }
-
-    showData();
-  </script>
-
+  <!-- Cosmic UI Lite Script -->
+  <script src="https://unpkg.com/cosmic-ui-lite@latest/dist/index.umd.js"></script>
 </body>
 </html>
