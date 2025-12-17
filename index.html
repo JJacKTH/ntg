@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <title>Simple GitHub Pages Site</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+  <!-- Header -->
+  <header class="bg-white shadow">
+    <div class="max-w-5xl mx-auto px-4 py-4 flex justify-between items-center">
+      <h1 class="text-xl font-bold">My Simple Web</h1>
+      <span class="text-sm text-gray-500">GitHub Pages</span>
+    </div>
+  </header>
+
+  <!-- Content -->
+  <main class="max-w-5xl mx-auto px-4 py-10">
+    <div class="bg-white rounded-xl shadow p-6 space-y-4">
+      <h2 class="text-lg font-semibold">ตัวอย่างเว็บใช้งานง่าย</h2>
+
+      <p class="text-gray-600">
+        เว็บนี้เป็น Static HTML ใช้งานบน GitHub Pages ได้ทันที
+      </p>
+
+      <div class="flex gap-2">
+        <input
+          id="inputText"
+          type="text"
+          placeholder="พิมพ์ข้อความ..."
+          class="flex-1 border rounded-lg px-3 py-2 focus:outline-none focus:ring"
+        />
+        <button
+          onclick="saveData()"
+          class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
+        >
+          บันทึก
+        </button>
+      </div>
+
+      <div class="mt-4">
+        <p class="text-sm text-gray-500 mb-1">ข้อมูลที่บันทึกไว้:</p>
+        <div id="output" class="bg-gray-50 border rounded-lg p-3 text-sm"></div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="text-center text-sm text-gray-500 py-6">
+    © 2025 Simple GitHub Pages
+  </footer>
+
+  <!-- Script -->
+  <script>
+    const output = document.getElementById('output');
+
+    function saveData() {
+      const value = document.getElementById('inputText').value.trim();
+      if (!value) return;
+
+      localStorage.setItem('myData', value);
+      showData();
+    }
+
+    function showData() {
+      output.textContent = localStorage.getItem('myData') || '- ไม่มีข้อมูล -';
+    }
+
+    showData();
+  </script>
+
+</body>
+</html>
