@@ -5,7 +5,7 @@ if (!id) {
   location.href = "index.html";
 }
 
-fetch(API_URL + "?action=me&id=" + id)
+fetch(APP_SCRIPT_URL + "?action=me&id=" + id)
   .then(r => r.json())
   .then(user => {
     if (user.error) throw "not login";
