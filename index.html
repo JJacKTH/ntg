@@ -1,77 +1,190 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="th">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cosmic UI Dashboard</title>
+  <meta charset="utf-8">
+  <title>Cosmic Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <!-- Cosmic UI Lite CSS -->
+  <!-- Cosmic UI -->
   <link rel="stylesheet" href="https://unpkg.com/cosmic-ui-lite@latest/dist/cosmic-ui.css">
+  <script src="https://unpkg.com/cosmic-ui-lite@latest/dist/index.umd.js"></script>
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
   <style>
     body {
-      background: #000;
-      color: #0ff;
-      font-family: Arial, sans-serif;
+      background:#05070d;
+      color:#c9d1ff;
+      margin:0;
+      font-family: system-ui;
     }
-    .sidebar {
-      width: 220px;
-      background: #111;
-      height: 100vh;
-      padding: 20px;
-      box-sizing: border-box;
-      float: left;
+    .layout {
+      display:grid;
+      grid-template-columns:240px 1fr;
+      min-height:100vh;
     }
-    .main {
-      margin-left: 240px;
-      padding: 20px;
+    aside {
+      background:#0b0f1a;
+      padding:20px;
+      border-right:1px solid #1f2a44;
     }
-    .dashboard-card {
-      margin-bottom: 20px;
+    main {
+      padding:24px;
+    }
+    .card-grid {
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+      gap:16px;
+    }
+    .section {
+      margin-top:24px;
+    }
+    table {
+      width:100%;
+      border-collapse:collapse;
+      font-size:14px;
+    }
+    th,td {
+      padding:10px;
+      border-bottom:1px solid #1f2a44;
+    }
+    th {
+      text-align:left;
+      color:#7aa2ff;
     }
   </style>
 </head>
 <body>
 
+<div class="layout">
+
   <!-- Sidebar -->
-  <div class="sidebar">
-    <h2 class="cosmic-text">Dashboard</h2>
-    <button class="cosmic-btn cosmic-btn--primary" onclick="CosmicUI.showNotification('Info', 'Clicked Dashboard menu!')">Home</button>
-    <button class="cosmic-btn cosmic-btn--secondary" onclick="CosmicUI.showNotification('Info', 'Clicked Stats!')">Stats</button>
-  </div>
+  <aside>
+    <h2 class="cosmic-text">COSMIC</h2>
+    <p class="text-sm opacity-70">Admin Dashboard</p>
 
-  <!-- Main Content -->
-  <div class="main">
-    <h1 class="cosmic-text">Control Center</h1>
+    <div style="margin-top:20px" class="space-y-2">
+      <button class="cosmic-btn cosmic-btn--primary w-full">Dashboard</button>
+      <button class="cosmic-btn cosmic-btn--secondary w-full">Users</button>
+      <button class="cosmic-btn cosmic-btn--secondary w-full">Settings</button>
+    </div>
+  </aside>
 
-    <!-- Card 1 -->
-    <div class="cosmic-card dashboard-card">
-      <h3>Status Summary</h3>
-      <p>System Health: OK</p>
-      <p>Server Load: Low</p>
+  <!-- Main -->
+  <main>
+
+    <!-- Header -->
+    <div class="flex justify-between items-center">
+      <h1 class="cosmic-text">Overview</h1>
+      <button class="cosmic-btn cosmic-btn--primary"
+        onclick="CosmicUI.showNotification('Success','System is running')">
+        Check Status
+      </button>
     </div>
 
-    <!-- Card 2 -->
-    <div class="cosmic-card dashboard-card">
+    <!-- Stats Cards -->
+    <div class="card-grid section">
+      <div class="cosmic-card">
+        <h4>Total Users</h4>
+        <p class="text-2xl">1,248</p>
+      </div>
+      <div class="cosmic-card">
+        <h4>Active Today</h4>
+        <p class="text-2xl">312</p>
+      </div>
+      <div class="cosmic-card">
+        <h4>Server Load</h4>
+        <p class="text-2xl">23%</p>
+      </div>
+      <div class="cosmic-card">
+        <h4>Errors</h4>
+        <p class="text-2xl">0</p>
+      </div>
+    </div>
+
+    <!-- Chart -->
+    <div class="cosmic-card section">
       <h3>User Activity</h3>
-      <p>Online Users: 42</p>
-      <p>New Signups: 5</p>
+      <canvas id="chart" height="100"></canvas>
     </div>
 
-    <!-- Action Button -->
-    <button class="cosmic-btn cosmic-btn--primary" onclick="CosmicUI.showModal({
-      title: 'Confirm Action',
-      content: 'Are you sure you want to proceed?',
-      buttons: [
-        { text: 'Cancel', variant: 'secondary' },
-        { text: 'Confirm', variant: 'primary', onClick: () => CosmicUI.showNotification('Confirmed', 'Action executed!') }
-      ]
-    })">
-      Perform Action
-    </button>
-  </div>
+    <!-- Tabs -->
+    <div class="cosmic-card section">
+      <div class="flex gap-2">
+        <button class="cosmic-btn cosmic-btn--secondary" onclick="showTab('table')">Table</button>
+        <button class="cosmic-btn cosmic-btn--secondary" onclick="showTab('form')">Form</button>
+      </div>
 
-  <!-- Cosmic UI Lite Script -->
-  <script src="https://unpkg.com/cosmic-ui-lite@latest/dist/index.umd.js"></script>
+      <!-- Table -->
+      <div id="tab-table" class="section">
+        <table>
+          <thead>
+            <tr>
+              <th>User</th>
+              <th>Status</th>
+              <th>Last Active</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Alpha</td>
+              <td>Online</td>
+              <td>2 min ago</td>
+            </tr>
+            <tr>
+              <td>Beta</td>
+              <td>Offline</td>
+              <td>1 day ago</td>
+            </tr>
+            <tr>
+              <td>Gamma</td>
+              <td>Online</td>
+              <td>5 min ago</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Form -->
+      <div id="tab-form" class="section" style="display:none">
+        <div class="space-y-3">
+          <input class="cosmic-input w-full" placeholder="Username">
+          <input class="cosmic-input w-full" placeholder="Email">
+          <button class="cosmic-btn cosmic-btn--primary"
+            onclick="CosmicUI.showModal({
+              title:'Saved',
+              content:'User data saved successfully'
+            })">
+            Save
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<script>
+  // Chart
+  new Chart(document.getElementById('chart'), {
+    type:'line',
+    data:{
+      labels:['Mon','Tue','Wed','Thu','Fri','Sat','Sun'],
+      datasets:[{
+        label:'Users',
+        data:[120,190,300,260,220,280,350],
+        tension:0.4
+      }]
+    }
+  });
+
+  // Tabs
+  function showTab(tab) {
+    document.getElementById('tab-table').style.display = tab==='table'?'block':'none';
+    document.getElementById('tab-form').style.display  = tab==='form'?'block':'none';
+  }
+</script>
+
 </body>
 </html>
